@@ -23,5 +23,10 @@ namespace AkbilYonetimFormUygulamasi
             frm.Show();
             this.Hide();
         }
+
+        private void FrmGiris_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

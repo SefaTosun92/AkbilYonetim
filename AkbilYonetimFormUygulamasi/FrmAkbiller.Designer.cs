@@ -34,6 +34,9 @@ namespace AkbilYonetimFormUygulamasi
             this.anaSayfaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.talimatlarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageAkbilList = new System.Windows.Forms.TabPage();
+            this.dataGridViewAkbilList = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripAkbilSil = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.silToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlAkbiller = new System.Windows.Forms.TabControl();
             this.tabPageAkbilEkle = new System.Windows.Forms.TabPage();
             this.buttonAkbilEkle = new System.Windows.Forms.Button();
@@ -42,15 +45,12 @@ namespace AkbilYonetimFormUygulamasi
             this.textBoxAdSoyad = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPageAkbilGuncelle = new System.Windows.Forms.TabPage();
-            this.dataGridViewAkbilList = new System.Windows.Forms.DataGridView();
-            this.contextMenuStripAkbilSil = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.silToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripAkbiller.SuspendLayout();
             this.tabPageAkbilList.SuspendLayout();
-            this.tabControlAkbiller.SuspendLayout();
-            this.tabPageAkbilEkle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAkbilList)).BeginInit();
             this.contextMenuStripAkbilSil.SuspendLayout();
+            this.tabControlAkbiller.SuspendLayout();
+            this.tabPageAkbilEkle.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStripAkbiller
@@ -86,6 +86,34 @@ namespace AkbilYonetimFormUygulamasi
             this.tabPageAkbilList.TabIndex = 0;
             this.tabPageAkbilList.Text = "Sistemdeki Akbiller";
             this.tabPageAkbilList.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewAkbilList
+            // 
+            this.dataGridViewAkbilList.AllowUserToAddRows = false;
+            this.dataGridViewAkbilList.AllowUserToDeleteRows = false;
+            this.dataGridViewAkbilList.AllowUserToOrderColumns = true;
+            this.dataGridViewAkbilList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAkbilList.ContextMenuStrip = this.contextMenuStripAkbilSil;
+            this.dataGridViewAkbilList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewAkbilList.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewAkbilList.Name = "dataGridViewAkbilList";
+            this.dataGridViewAkbilList.ReadOnly = true;
+            this.dataGridViewAkbilList.Size = new System.Drawing.Size(714, 395);
+            this.dataGridViewAkbilList.TabIndex = 0;
+            
+            // 
+            // contextMenuStripAkbilSil
+            // 
+            this.contextMenuStripAkbilSil.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.silToolStripMenuItem});
+            this.contextMenuStripAkbilSil.Name = "contextMenuStripAkbilSil";
+            this.contextMenuStripAkbilSil.Size = new System.Drawing.Size(87, 26);
+            // 
+            // silToolStripMenuItem
+            // 
+            this.silToolStripMenuItem.Name = "silToolStripMenuItem";
+            this.silToolStripMenuItem.Size = new System.Drawing.Size(86, 22);
+            this.silToolStripMenuItem.Text = "Sil";
             // 
             // tabControlAkbiller
             // 
@@ -168,33 +196,6 @@ namespace AkbilYonetimFormUygulamasi
             this.tabPageAkbilGuncelle.Text = "Akbil Bilgileri Güncelle";
             this.tabPageAkbilGuncelle.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewAkbilList
-            // 
-            this.dataGridViewAkbilList.AllowUserToAddRows = false;
-            this.dataGridViewAkbilList.AllowUserToDeleteRows = false;
-            this.dataGridViewAkbilList.AllowUserToOrderColumns = true;
-            this.dataGridViewAkbilList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAkbilList.ContextMenuStrip = this.contextMenuStripAkbilSil;
-            this.dataGridViewAkbilList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewAkbilList.Location = new System.Drawing.Point(3, 3);
-            this.dataGridViewAkbilList.Name = "dataGridViewAkbilList";
-            this.dataGridViewAkbilList.ReadOnly = true;
-            this.dataGridViewAkbilList.Size = new System.Drawing.Size(714, 395);
-            this.dataGridViewAkbilList.TabIndex = 0;
-            // 
-            // contextMenuStripAkbilSil
-            // 
-            this.contextMenuStripAkbilSil.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.silToolStripMenuItem});
-            this.contextMenuStripAkbilSil.Name = "contextMenuStripAkbilSil";
-            this.contextMenuStripAkbilSil.Size = new System.Drawing.Size(87, 26);
-            // 
-            // silToolStripMenuItem
-            // 
-            this.silToolStripMenuItem.Name = "silToolStripMenuItem";
-            this.silToolStripMenuItem.Size = new System.Drawing.Size(86, 22);
-            this.silToolStripMenuItem.Text = "Sil";
-            // 
             // FrmAkbiller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,11 +210,11 @@ namespace AkbilYonetimFormUygulamasi
             this.menuStripAkbiller.ResumeLayout(false);
             this.menuStripAkbiller.PerformLayout();
             this.tabPageAkbilList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAkbilList)).EndInit();
+            this.contextMenuStripAkbilSil.ResumeLayout(false);
             this.tabControlAkbiller.ResumeLayout(false);
             this.tabPageAkbilEkle.ResumeLayout(false);
             this.tabPageAkbilEkle.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAkbilList)).EndInit();
-            this.contextMenuStripAkbilSil.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -66,6 +66,7 @@ namespace AkbilYonetimFormUygulamasi
             this.Controls.Add(this.buttonAkbiller);
             this.Name = "FrmGiris";
             this.Text = "AKBİL YÖNETİM UYGULAMASI";
+            this.Load += new System.EventHandler(this.FrmGiris_Load);
             this.ResumeLayout(false);
 
         }

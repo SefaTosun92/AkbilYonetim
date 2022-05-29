@@ -37,7 +37,7 @@ namespace AkbilYonetimFormUygulamasi.Entities
 
         public decimal Bakiye { get; set; }
 
-        static bool TumKarakterlerRakamMi(string metin) //IsAllCharacterDigit
+        public static bool TumKarakterlerRakamMi(string metin) //IsAllCharacterDigit
         {
             foreach (var item in metin)
             {

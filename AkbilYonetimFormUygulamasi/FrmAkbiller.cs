@@ -20,7 +20,7 @@ namespace AkbilYonetimFormUygulamasi
         SqlConnection baglanti = new SqlConnection();
         //sql komutu select * from Akbiller(Akbiller tablosundaki tüm kolonları getir)
         SqlCommand komut = new SqlCommand();
-        
+
         private void AdonetBaglantisi()
         {
             baglanti.ConnectionString = SqlConnectionString;
@@ -74,7 +74,7 @@ namespace AkbilYonetimFormUygulamasi
             catch (Exception hata)
             {
 
-                dataGridViewAkbilList.DataSource=null;
+                dataGridViewAkbilList.DataSource = null;
                 //hata loglanabilir.
                 MessageBox.Show("Beklenmedik bir hata oluştu!" + hata.Message);
             }
@@ -85,6 +85,7 @@ namespace AkbilYonetimFormUygulamasi
             // akbil isimli classa ihtiyacım var
             try
             {
+                
                 Akbil yeniAkbil = new Akbil()
                 {
                     AkbilSahibi = textBoxAdSoyad.Text,
@@ -94,9 +95,25 @@ namespace AkbilYonetimFormUygulamasi
                     SeriNumarasi = textBoxSeriNumara.Text,
                 };
 
+                if (string.IsNullOrEmpty(textBoxSeriNumara.Text))
+                {
+                    //eğer içi boş ise yani kullanıcı seri numarsı yazmadıysa biz rastgele seri numarası üreteceiz
+                    yeniAkbil.SeriNumarasi=RastgeleSeriNumarasiOlustur();
+
+                }
+                else if (!Akbil.TumKarakterlerRakamMi(yeniAkbil.SeriNumarasi))
+                {
+                    throw new Exception("Seri numarası sadece rakamlardan oluşmalıdır!");
+                }
+                else if (AyniSeriNumarasindanVarMi(yeniAkbil.SeriNumarasi))
+                {
+                    throw new Exception("Bu seri numarası sistemde kullanılmaktadır!");
+                }
+               
+
                 AdonetBaglantisi();
                 string guncellenmeTarihi = yeniAkbil.GuncellenmeTarihi == null ? "null" : $"'{yeniAkbil.GuncellenmeTarihi}'";
-                string aktifMi=yeniAkbil.AktifMi ? "1":"0";
+                string aktifMi = yeniAkbil.AktifMi ? "1" : "0";
                 komut.CommandText = $"insert into akbiller(AkbilSahibiAdSoyad,SeriNumarasi,AktifMi,Bakiye,GuncellenmeTarihi,KayitTarihi)" +
                     $"values('{yeniAkbil.AkbilSahibi}','{yeniAkbil.SeriNumarasi}',{aktifMi},{yeniAkbil.Bakiye},{guncellenmeTarihi}," +
                     $"'{yeniAkbil.KayitTarihi.ToString("yyyy-MM-dd HH:mm:ss")}')";
@@ -104,6 +121,13 @@ namespace AkbilYonetimFormUygulamasi
                 baglanti.Open();//bağlantıyı aç
                 komut.ExecuteNonQuery();//ekleme yapar
                 baglanti.Close();
+                MessageBox.Show("Yeni akbil sisteme eklendi");
+
+                //Temizlik yapılmalıdır.
+                TabPageAkbilListTemizle();
+                //tabcontrolün hangi sayfada selected olacağını belirledik.
+                tabControlAkbiller.SelectedTab = tabControlAkbiller.TabPages["tabPageAkbilList"];
+
 
                 //Sisteme yeni akbil eklenince akbil listesi güncellenmeli
                 //datagrid view içi güncellensin
@@ -124,5 +148,72 @@ namespace AkbilYonetimFormUygulamasi
 
 
         }
+        private void TabPageAkbilListTemizle()
+        {
+            foreach (var item in tabPageAkbilEkle.Controls)
+            {
+                if (item is TextBox)
+                {
+                    ((TextBox)item).Clear();
+                }
+            }
+        }
+
+        private string RastgeleSeriNumarasiOlustur()
+        {
+            try
+            {
+                string seriNo = string.Empty;
+                Random rnd = new Random();
+                do
+                {
+                    seriNo = string.Empty;
+                    for (int i = 1; i < 17; i++)
+                    {
+                        seriNo += rnd.Next(0, 9).ToString();
+                    }
+                } while (AyniSeriNumarasindanVarMi(seriNo));
+
+                return seriNo;
+
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private bool AyniSeriNumarasindanVarMi(string seriNumarasi)
+        {
+            try
+            {
+                if (seriNumarasi.Length != 16)
+                {
+                    throw new Exception("HATA!! Seri numarası 16 haneli olmalıdır!");
+                }
+                AdonetBaglantisi();
+                komut.CommandText = $"select * from Akbiller where SeriNumarasi='{seriNumarasi}'";
+                baglanti.Open();
+                SqlDataAdapter adaptor = new SqlDataAdapter(komut);
+                DataTable dt = new DataTable();
+                adaptor.Fill(dt);
+                baglanti.Close();
+
+                if (dt.Rows.Count > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }
